@@ -3,22 +3,27 @@
 
 <mapper namespace="com.zhonghuasheng.musicstore.dao.UserDao">
     <resultMap id="userMap" type="com.zhonghuasheng.musicstore.model.User">
-        <id column="id" property="id" />
-        <result column="nickname" property="nickname" />
-        <result column="password" property="password" />
-        <result column="gender" property="gender"/>
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="username" property="username" />
         <result column="email" property="email"/>
-        <result column="phonenumber" property="phoneNumber"/>
-        <result column="status" property="status"/>
-        <result column="isactive" property="isActive"/>
+        <result column="password" property="password" />
+        <result column="role" property="role"/>
+        <result column="birthday" property="birthday"/>
+        <result column="gender" property="gender"/>
+        <result column="avatar" property="avatar"/>
+        <result column="active" property="active"/>
+        <result column="deleted" property="deleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modified_time" property="lastModifiedTime"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
     </resultMap>
 
-    <select id="getByNicknameAndPassword" parameterType="map" resultMap="userMap">
+    <select id="getUserByEmailAndPassword" parameterType="map" resultMap="userMap">
         <![CDATA[
             SELECT
                 *
-            FROM user
-            WHERE nickname= #{nickname} AND password = #{password}
+            FROM user_
+            WHERE email= #{nickname} AND password = #{password}
         ]]>
     </select>
 </mapper>
