@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController(value = "User Component RESTFUL API")
 @RequestMapping(value = "/user")
 @Api(value = "User API List")
@@ -18,8 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "/login")
-    public User login(@RequestParam(value = "email") String email,
-                      @RequestParam(value = "password") String password) {
+    public User login(String email, String password) {
         User user = userService.getUserByEmailAndPassword(email, password);
 
         return user;
