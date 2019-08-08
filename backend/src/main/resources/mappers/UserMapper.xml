@@ -3,10 +3,9 @@
 
 <mapper namespace="com.zhonghuasheng.musicstore.dao.UserDao">
     <resultMap id="userMap" type="com.zhonghuasheng.musicstore.model.User">
-        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <id column="uuid" property="uuid"/>
         <result column="username" property="username" />
         <result column="email" property="email"/>
-        <result column="password" property="password" />
         <result column="role" property="role"/>
         <result column="birthday" property="birthday"/>
         <result column="gender" property="gender"/>
@@ -17,13 +16,17 @@
         <result column="last_modified_time" property="lastModifiedTime"/>
         <result column="last_modified_by" property="lastModifiedBy"/>
     </resultMap>
-
     <select id="getUserByEmailAndPassword" parameterType="map" resultMap="userMap">
         <![CDATA[
             SELECT
                 *
             FROM user_
-            WHERE email= #{nickname} AND password = #{password}
+            WHERE email= #{email} AND password = #{password};
+        ]]>
+    </select>
+    <select id="getActiveUsers" resultMap="userMap">
+        <![CDATA[
+            SELECT * FROM user_ where active=true AND deleted=false;
         ]]>
     </select>
 </mapper>

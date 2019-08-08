@@ -1,21 +1,20 @@
 package com.zhonghuasheng.musicstore.model;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 public class BaseModel {
 
-    private UUID uuid;
+    private String uuid;
     private Timestamp createTime;
     private Timestamp lastModifiedTime;
     private String lastModifiedBy;
     private boolean deleted;
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 

@@ -2,23 +2,55 @@ package com.zhonghuasheng.musicstore.controller;
 
 import com.zhonghuasheng.musicstore.model.User;
 import com.zhonghuasheng.musicstore.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+import java.util.Map;
+
+@RestController(value = "User Component RESTFUL API")
 @RequestMapping(value = "/user")
+@Api(value = "User API List")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public User login(String email, String password) {
+    @PostMapping(value = "/login")
+    public User login(@RequestParam(value = "email") String email,
+                      @RequestParam(value = "password") String password) {
         User user = userService.getUserByEmailAndPassword(email, password);
 
         return user;
+    }
+
+    @GetMapping()
+    public List<User> getActiveUsers() {
+        List<User> users = userService.getActiveUsers();
+
+        return users;
+    }
+
+    @GetMapping(value = "/{uuid}")
+    public User getUserProfile(@PathVariable(value = "uuid") String uuid) {
+        User user = userService.getUserById(uuid);
+
+        return user;
+    }
+
+    @PostMapping(value = "/{uuid}")
+    public String updateProfile(@PathVariable(value = "uuid") String uuid, @RequestBody User user) {
+        boolean result = userService.update(user);
+
+        return null;
+    }
+
+    @PostMapping(value = "/signup")
+    public String signup(@RequestBody Map<String, Object> params) {
+        User user = new User();
+        boolean result = userService.create(user);
+
+        return null;
     }
 }
